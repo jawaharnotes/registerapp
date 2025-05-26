@@ -4,7 +4,7 @@ pipeline {
             maven 'maven3'}
     stages { 
         stage("cleanup Workspace") {
-          steps{ cleanWS() }
+          steps{ cleanWs() }
         }
 
         stage("Checkout from SCM") {
