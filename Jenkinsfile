@@ -3,7 +3,7 @@ pipeline {
     tools { jdk 'java17'
             maven 'maven3'}
     environment {
-            APP_NAME = "registerapp-pipeline"
+            APP_NAME = "myapp-pipeline"
             RELEASE = "1.0.0"
             DOCKER_USER = "jawahartolearn"
             DOCKER_PASS = "dockerhub"
@@ -39,8 +39,7 @@ pipeline {
        stage("SonarQube Analysis"){
          steps{
            script {
-              withSonarQubeEnv(
-                  credentialsId: 'jenkins-sonarqube-token') {
+              withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
               sh "mvn sonar:sonar"
                   }
                }
@@ -51,7 +50,7 @@ pipeline {
           steps{
             script{
                 waitForQualityGate abortPipeline: false,
-                    credentialsId: 'jenkins-sonarqube-token'
+                                   credentialsId: 'jenkins-sonarqube-token'
             }
           }
       }
