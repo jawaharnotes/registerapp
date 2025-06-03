@@ -72,6 +72,7 @@ pipeline {
            steps {
                script {
 	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/reports aquasec/trivy image jawahartolearn/myapp-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table --output /root/reports/trivy-report.txt')
+		    archiveArtifacts artifacts: 'trivy-report.txt'   
                }
            }
        }
