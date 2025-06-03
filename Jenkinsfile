@@ -71,7 +71,7 @@ pipeline {
      stage("Trivy Scan") {
            steps {
                script {
-	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/reports aquasec/trivy image jawahartolearn/myapp-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format json --output /root/reports/trivy-report.json')
+	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/reports aquasec/trivy image jawahartolearn/myapp-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --format json --output /root/reports/trivy-report.json')
 		    archiveArtifacts artifacts: 'trivy-report.json'   
                }
            }
