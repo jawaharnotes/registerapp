@@ -80,10 +80,19 @@ pipeline {
     stage("cleanup Artifacts") {
 	    steps{
 		script {
-                     sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
+             sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
 		     sh "docker rmi ${IMAGE_NAME}:latest"
 		}
 	    }
          }
+
+	 stage("Trigger CD Pipeline") {
+            steps {
+                script {
+                    sh "curl -v -k --user admin:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'ec2-13-235-82-34.ap-south-1.compute.amazonaws.com:8080/job/user-registration-cd/buildWithParameters?token=gitops-token'"
+                }
+            }
+		
     }
+}
 }
