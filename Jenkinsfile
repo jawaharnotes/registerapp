@@ -102,8 +102,8 @@ pipeline {
         	emailext(
             	to: "jawaharr1393@gmail.com",
             	from: "jawahar.tolearn@gmail.com",
-            	subject: "Test from pipeline - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-            	body: "This is a test email sent from Jenkins pipeline.",
+            	subject: "Result from pipeline - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            	body: "Please find your Build status and act accordingly if build deviates.",
             	mimeType: 'text/plain'
         )
     }
