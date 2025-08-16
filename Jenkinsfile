@@ -98,13 +98,28 @@ pipeline {
 	}
 
 	 post {
-    	always {
+		failure {
         	emailext(
-            	to: "jawaharr1393@gmail.com",
-            	from: "jawahar.tolearn@gmail.com",
-            	subject: "Result from pipeline - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-            	body: "Please find your Build status and act accordingly if build deviates.",
-            	mimeType: 'text/plain'
+            	subject: "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - Failed",
+           		body: """
+                	<p>Hello,</p>
+               	 	<p>The build has <b>FAILED</b>.</p>
+                	<p><a href="${env.BUILD_URL}">Click here to view the build details</a></p>
+           			 """,
+            mimeType: 'text/html',
+            to: "jawaharr1393@gmail.com"
+        )
+    }
+    	success {
+        	emailext(
+            	subject: "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - Successful",
+            	body: """
+                	<p>Hello,</p>
+                	<p>The build completed <b>SUCCESSFULLY</b>.</p>
+                	<p><a href="${env.BUILD_URL}">Click here to view the build details</a></p>
+            	""",
+            mimeType: 'text/html',
+            to: "jawaharr1393@gmail.com"
         )
     }
 }
