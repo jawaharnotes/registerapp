@@ -98,16 +98,15 @@ pipeline {
 	}
 
 	 post {
-       failure {
-             emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
-                      subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", 
-                      mimeType: 'text/html',to: "jawaharr1393@gmail.com"
-      }
-      success {
-            emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
-                     subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
-                     mimeType: 'text/html',to: "jawaharr1393@gmail.com"
-}
+    	always {
+        	emailext(
+            	to: "jawaharr1393@gmail.com",
+            	from: "jawahar.tolearn@gmail.com",
+            	subject: "Test from pipeline - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            	body: "This is a test email sent from Jenkins pipeline.",
+            	mimeType: 'text/plain'
+        )
+    }
 }
 
 }
